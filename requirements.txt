@@ -1,0 +1,7 @@
+# Versões fixadas: o modelo salvo (joblib) precisa da mesma versão do scikit-learn usada no treino
+streamlit==1.50.0
+scikit-learn==1.7.2
+pandas==2.3.3
+numpy==2.5.3
+joblib==1.6.0
+matplotlib==3.10.7
