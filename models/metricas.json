@@ -1,0 +1,147 @@
+{
+  "gerado_em": "2026-11-24",
+  "modelo_final": "Random Forest",
+  "baseline": "Regressão Logística",
+  "parametros_modelo": {
+    "n_estimators": 200,
+    "max_features": "sqrt",
+    "min_samples_leaf": 100
+  },
+  "periodo": {
+    "inicio": "10/2016",
+    "fim": "08/2018"
+  },
+  "n_pedidos": 95823,
+  "n_treino": 76658,
+  "n_teste": 19165,
+  "taxa_base": 0.1281,
+  "divisao": "estratificada 80/20",
+  "k_folds": 5,
+  "criterio_threshold": "maior F1 na validação cruzada do treino",
+  "threshold": 0.2155,
+  "threshold_baseline": 0.2183,
+  "validacao_cruzada": {
+    "random_forest": {
+      "roc_auc": 0.7546,
+      "pr_auc": 0.4611
+    },
+    "baseline": {
+      "roc_auc": 0.7341,
+      "pr_auc": 0.4043
+    }
+  },
+  "teste": {
+    "random_forest": {
+      "recall": 0.4434,
+      "precisao": 0.4575,
+      "f1": 0.4503,
+      "roc_auc": 0.759,
+      "pr_auc": 0.4607,
+      "acuracia": 0.8614,
+      "threshold": 0.2155,
+      "perc_alertas": 0.1241
+    },
+    "baseline": {
+      "recall": 0.4042,
+      "precisao": 0.4291,
+      "f1": 0.4163,
+      "roc_auc": 0.7361,
+      "pr_auc": 0.3953,
+      "acuracia": 0.8548,
+      "threshold": 0.2183,
+      "perc_alertas": 0.1206
+    },
+    "ingenuo": {
+      "recall": 0.0,
+      "precisao": 0.0,
+      "f1": 0.0,
+      "roc_auc": 0.5,
+      "pr_auc": 0.128,
+      "acuracia": 0.872,
+      "threshold": 0.5,
+      "perc_alertas": 0.0
+    }
+  },
+  "matriz_confusao": {
+    "vn": 15421,
+    "fp": 1290,
+    "fn": 1366,
+    "vp": 1088
+  },
+  "faixas": [
+    {
+      "faixa": "Risco baixo",
+      "perc_pedidos": 81.1,
+      "taxa_real": 7.2
+    },
+    {
+      "faixa": "Risco moderado",
+      "perc_pedidos": 12.8,
+      "taxa_real": 22.5
+    },
+    {
+      "faixa": "Risco alto",
+      "perc_pedidos": 1.5,
+      "taxa_real": 44.2
+    },
+    {
+      "faixa": "Risco muito alto",
+      "perc_pedidos": 4.6,
+      "taxa_real": 73.6
+    }
+  ],
+  "importancia": [
+    {
+      "variavel": "Dias de atraso vs. prazo",
+      "queda_pr_auc": 0.1989
+    },
+    {
+      "variavel": "Tempo de entrega",
+      "queda_pr_auc": 0.0599
+    },
+    {
+      "variavel": "Quantidade de itens",
+      "queda_pr_auc": 0.043
+    },
+    {
+      "variavel": "UF do cliente",
+      "queda_pr_auc": 0.0103
+    },
+    {
+      "variavel": "Categoria do produto",
+      "queda_pr_auc": 0.005
+    },
+    {
+      "variavel": "Valor do frete",
+      "queda_pr_auc": 0.0044
+    },
+    {
+      "variavel": "Vendedor em outro estado",
+      "queda_pr_auc": 0.0032
+    },
+    {
+      "variavel": "Valor dos produtos",
+      "queda_pr_auc": 0.0012
+    },
+    {
+      "variavel": "Parcelas",
+      "queda_pr_auc": 0.0011
+    },
+    {
+      "variavel": "Forma de pagamento",
+      "queda_pr_auc": 0.0009
+    },
+    {
+      "variavel": "Frete / valor",
+      "queda_pr_auc": 0.0005
+    },
+    {
+      "variavel": "UF do vendedor",
+      "queda_pr_auc": 0.0003
+    }
+  ],
+  "temporal": {
+    "roc_auc": 0.6824,
+    "pr_auc": 0.2932
+  }
+}
