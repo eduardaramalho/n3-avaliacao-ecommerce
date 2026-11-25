@@ -37,31 +37,59 @@ def _descrever_atraso(d: int) -> str:
     return "no prazo"
 
 
-def _rotulo(campo: str, entrada: dict, tipico: dict) -> str:
+# Preposição usada com cada UF ("Cliente na BA", "Cliente no RJ", "Cliente em SP")
+_PREP_UF = {
+    "AC": "no", "AL": "em", "AM": "no", "AP": "no", "BA": "na", "CE": "no", "DF": "no",
+    "ES": "no", "GO": "em", "MA": "no", "MG": "em", "MS": "em", "MT": "em", "PA": "no",
+    "PB": "na", "PE": "em", "PI": "no", "PR": "no", "RJ": "no", "RN": "no", "RO": "em",
+    "RR": "em", "RS": "no", "SC": "em", "SE": "em", "SP": "em", "TO": "em",
+}
+_PAGAMENTO_FRASE = {
+    "credit_card": "Pagamento no cartão de crédito",
+    "boleto": "Pagamento no boleto",
+    "voucher": "Pagamento com voucher",
+    "debit_card": "Pagamento no cartão de débito",
+}
+
+
+def _reais(v) -> str:
+    return f"R$ {float(v):,.0f}".replace(",", ".")
+
+
+def _rotulo(campo: str, entrada: dict) -> str:
+    """Rótulo curto, que cabe em uma linha no app."""
     v = entrada[campo]
     if campo == "dias_atraso":
-        return f"Entrega {_descrever_atraso(int(v))} (típico: {_descrever_atraso(int(tipico[campo]))})"
+        d = int(v)
+        if d > 0:
+            return f"Atraso de {d} dia{'s' if d != 1 else ''}"
+        if d < 0:
+            return f"Entrega {-d} dia{'s' if d != -1 else ''} adiantada"
+        return "Entrega no prazo, sem folga"
     if campo == "qtd_itens":
         return f"{int(v)} ite{'ns' if int(v) != 1 else 'm'} no pedido"
     if campo == "categoria":
-        return f"Categoria: {nome_categoria(v)}"
+        return nome_categoria(v)
     if campo == "valor_produtos":
-        return f"Valor dos produtos R$ {float(v):,.0f}".replace(",", ".")
+        return f"Valor de {_reais(v)}"
     if campo == "valor_frete":
-        perc = 100 * float(v) / float(entrada["valor_produtos"]) if float(entrada["valor_produtos"]) > 0 else 0
-        return f"Frete R$ {float(v):,.0f} ({perc:.0f}% do valor)".replace(",", ".")
+        return f"Frete de {_reais(v)}"
     if campo == "pagamento":
-        return f"Pagamento: {FORMAS_PAGAMENTO.get(v, v)}"
+        return _PAGAMENTO_FRASE.get(v, f"Pagamento: {FORMAS_PAGAMENTO.get(v, v)}")
     if campo == "uf_cliente":
-        return f"Cliente em {v}"
+        return f"Cliente {_PREP_UF.get(v, 'em')} {v}"
     if campo == "uf_vendedor":
-        outro = " (outro estado)" if v != entrada["uf_cliente"] else " (mesmo estado)"
-        return f"Vendedor em {v}{outro}"
+        if v != entrada["uf_cliente"]:
+            return f"Vendedor de outro estado ({v})"
+        return f"Vendedor no mesmo estado ({v})"
     return campo
 
 
-def explicar(modelo, entrada: dict, ref: dict, top: int = 6, minimo_pp: float = 0.1):
+def explicar(modelo, entrada: dict, ref: dict, top: int = 6, minimo_pp: float = 1.0):
     """Retorna (probabilidade, lista de fatores).
+
+    Só entram fatores com efeito de pelo menos `minimo_pp` pontos percentuais:
+    efeitos menores são ruído e confundem quem lê.
 
     Cada fator é um dicionário com 'rotulo' e 'pp' (pontos percentuais).
     """
@@ -76,6 +104,6 @@ def explicar(modelo, entrada: dict, ref: dict, top: int = 6, minimo_pp: float = 
         p_ref = prever_probabilidade(modelo, alterada, ref)
         pp = 100 * (p - p_ref)
         if abs(pp) >= minimo_pp:
-            fatores.append({"campo": campo, "rotulo": _rotulo(campo, entrada, tipico), "pp": pp})
+            fatores.append({"campo": campo, "rotulo": _rotulo(campo, entrada), "pp": pp})
     fatores.sort(key=lambda f: abs(f["pp"]), reverse=True)
     return p, fatores[:top]

@@ -1,9 +1,11 @@
+# Tema escuro, escolhido pela equipe para a apresentação.
+# As cores do HTML do app estão em CORES, no app/app.py: mudar aqui exige mudar lá também.
 [theme]
-base = "light"
+base = "dark"
 primaryColor = "#2563eb"
-backgroundColor = "#f8fafc"
-secondaryBackgroundColor = "#ffffff"
-textColor = "#0f172a"
+backgroundColor = "#0b1220"
+secondaryBackgroundColor = "#111a2e"
+textColor = "#e5e9f0"
 font = "sans serif"
 
 [client]
