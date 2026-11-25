@@ -6,7 +6,7 @@ Projeto final de Aprendizagem de Máquina (Engenharia de Software, Católica SC)
 <!-- Responsável: Eduarda -->
 ## Página de teste
 
-**[LINK DA PÁGINA DE TESTE]**
+https://risco-avaliacao-olist.streamlit.app/
 
 Informe os dados de um pedido (ou use um dos exemplos prontos) e veja a probabilidade de avaliação negativa, a faixa de risco, a ação sugerida para o atendimento e os fatores que mais pesaram.
 

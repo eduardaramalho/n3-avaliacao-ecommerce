@@ -17,7 +17,7 @@ ARQ_METRICAS = PASTA_MODELOS / "metricas.json"
 ARQ_REFERENCIA = PASTA_MODELOS / "referencia.json"
 
 URL_KAGGLE = "https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce"
-URL_REPOSITORIO = "[LINK DO REPOSITÓRIO]"
+URL_REPOSITORIO = "https://github.com/eduardaramalho/n3-avaliacao-ecommerce"
 
 ARQUIVOS_CSV = {
     "orders": "olist_orders_dataset.csv",
