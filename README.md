@@ -74,8 +74,8 @@ Na importância por permutação, embaralhar o atraso derruba a PR-AUC em cerca 
 Requisitos: Python 3.11 ou superior.
 
 ```bash
-git clone [LINK DO REPOSITÓRIO]
-cd olist-avaliacao-negativa
+git clone https://github.com/eduardaramalho/n3-avaliacao-ecommerce.git
+cd n3-avaliacao-ecommerce
 pip install -r requirements.txt
 ```
 
@@ -90,6 +90,7 @@ Previsão pela linha de comando (alternativa ao app):
 ```bash
 python -m src.prever --atraso 15 --valor 180 --frete 45 --itens 1 --categoria moveis_decoracao --pagamento boleto --uf-vendedor SP --uf-cliente BA
 ```
+No Windows, se `pip`, `streamlit` ou `python` não forem reconhecidos no PowerShell, use `py -m` na frente: `py -m pip install -r requirements.txt`, `py -m streamlit run app/app.py` e `py -m src.prever ...`.
 
 Para refazer a análise e o treino: baixe os CSVs conforme [`data/LEIA-ME.md`](data/LEIA-ME.md), instale o Jupyter (`pip install jupyter`) e rode, em ordem, `notebooks/01_preparacao_eda.ipynb` e `notebooks/02_modelagem_avaliacao.ipynb`. O notebook 02 gera `models/modelo.joblib` e `models/metricas.json`.
 
